@@ -1,0 +1,6 @@
+rootProject.name = 'architecture-model'
+include 'domain'
+include 'adapters-in'
+include 'adapters-out'
+include 'ports'
+

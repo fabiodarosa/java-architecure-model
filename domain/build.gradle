@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(":ports")
+    runtimeOnly project(":adapters-out")
+}

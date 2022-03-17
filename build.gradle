@@ -1,0 +1,65 @@
+buildscript {
+	repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.6.3"
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.6.3'
+}
+
+dependencies {
+	implementation project(':adapters-in')
+}
+
+allprojects {
+
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+
+	group = 'com.fabiodarosa'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.3'
+		}
+	}
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-actuator'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-amqp'
+		runtimeOnly 'mysql:mysql-connector-java'
+		compileOnly 'org.projectlombok:lombok'
+		implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+
+
+		annotationProcessor 'org.projectlombok:lombok'
+		annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+
+		testImplementation 'io.cucumber:cucumber-java:7.2.3'
+		testImplementation 'io.cucumber:cucumber-junit:7.2.3'
+		testImplementation 'io.cucumber:cucumber-spring:7.2.3'
+		testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.2.3'
+
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.springframework.security:spring-security-test'
+	}
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
+}
